@@ -1,0 +1,55 @@
+<div class="users container">
+  <div class="head-crud">
+      <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+        <h1>CRUD USERS</h1>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
+        <button mat-icon-button color="primary" class="small"><mat-icon>person_add</mat-icon></button>
+      </div>
+  </div>
+
+  <div>
+    <mat-table [dataSource]="dataSource" >
+      <ng-container matColumnDef="first_name">
+        <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+        <mat-cell *matCellDef="let users"> 
+          <span> {{users.first_name}} </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="last_name">
+        <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let users"> 
+          <span> {{users.last_name}} </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let users"> 
+          <span> {{users.email}} </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+        <mat-cell *matCellDef="let users"> 
+          <span> {{users.gender}} </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="enabled">
+        <mat-header-cell *matHeaderCellDef>Enabled</mat-header-cell>
+        <mat-cell *matCellDef="let users"> 
+          <button mat-icon-button color="primary" class="small"><mat-icon>toggle_off</mat-icon></button>
+          <button mat-icon-button color="primary" class="small"><mat-icon>toggle_on</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'"> 
+          <button mat-icon-button color="primary" class="small"><mat-icon>delete_forever</mat-icon></button>
+          <button mat-icon-button color="primary" class="small"><mat-icon>visibility</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  angular-demo:
+    build: .
+    container_name: angular-demo
+    entrypoint: sh entrypoint.sh
+    working_dir: /home/node
+    ports:
+      - 4200:4200
+    volumes:
+      - .:/home/node
