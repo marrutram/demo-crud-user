@@ -1,14 +1,22 @@
-<div class="users container">
+<div class="app-users container">
   <div class="head-crud">
       <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
-        <h1>CRUD USERS</h1>
+        <h3>CRUD USERS</h3>
       </div>
       <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
         <button mat-icon-button color="primary" class="small"><mat-icon>person_add</mat-icon></button>
       </div>
   </div>
 
+  <div class="filter-crud">
+    <div fxLayout="row" fxLayoutGap="20px">
+      <mat-form-field fxFlex="100">
+        <input matInput  placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
   <div>
+
     <mat-table [dataSource]="dataSource" >
       <ng-container matColumnDef="first_name">
         <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
