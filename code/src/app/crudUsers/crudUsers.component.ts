@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ApiUsersService } from '../services/apiusers.service';
-import {throwError} from 'rxjs';
 import * as _ from 'lodash';
 import {MatTableDataSource, MatSort} from '@angular/material';
 import { first } from 'rxjs/operators';
 import { User} from '../models/users.model';
+import { AuthenticationService} from '../services';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './crudUsers.component.html',
@@ -18,7 +19,7 @@ export class CrudUsersComponent implements OnInit  {
   displayedColumns = ['first_name', 'last_name', 'email', 'gender', 'address', 'enabled', 'action'];
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private apiUsersService:  ApiUsersService) { }
+  constructor(private apiUsersService:  ApiUsersService, private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
     this.getUsers();
@@ -118,6 +119,11 @@ export class CrudUsersComponent implements OnInit  {
       if (this.isErrorUser) return false;
     });
     return this.isErrorUser ? 'disabled-save' : '';
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }
 

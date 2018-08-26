@@ -3,6 +3,9 @@
       <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
         <h3>CRUD USERS</h3>
       </div>
+      <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
+        <button mat-icon-button matTooltip="Logout" matTooltipPosition='above' color="primary" class="small" (click)="logout()"><mat-icon>power_settings_new</mat-icon></button>
+      </div>
   </div>
 
   <div class="filter-crud" *ngIf="dataUser.length !== 0;">
@@ -90,7 +93,7 @@
           </ng-container>
           <ng-container matColumnDef="action" >
             <mat-header-cell *matHeaderCellDef [ngClass]="'addUser'">
-                <button mat-icon-button matTooltip="Add User" matTooltipPosition='above' color="primary" class="small" (click)="addUser()"><mat-icon>person_add</mat-icon></button>
+              <button mat-icon-button matTooltip="Add User" matTooltipPosition='above' color="primary" class="small" (click)="addUser()"><mat-icon>person_add</mat-icon></button>
             </mat-header-cell>
             <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'">
               <button *ngIf="users.id !== 0;" mat-icon-button  matTooltip="Delete User" matTooltipPosition='above' color="primary" class="small"><mat-icon>delete_forever</mat-icon></button>

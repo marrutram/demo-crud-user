@@ -19,6 +19,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.http.get(`${serverURL}/auth/logout`);
     localStorage.removeItem('currentUser');
   }
 }
