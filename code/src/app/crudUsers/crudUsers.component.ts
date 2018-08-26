@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiUsersService } from '../services/apiusers.service';
 import {throwError} from 'rxjs';
 
 @Component({
-  selector: 'app-users',
   templateUrl: './crudUsers.component.html',
   styleUrls: ['./crudUsers.component.scss']
 })
 
-export class CrudUsersComponent  {
+export class CrudUsersComponent implements OnInit {
   dataSource : any = [];
   displayedColumns = ['first_name', 'last_name', 'email', 'gender', 'enabled', 'action'];
   constructor(private apiUsersService:  ApiUsersService) { }
