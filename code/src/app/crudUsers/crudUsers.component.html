@@ -4,60 +4,92 @@
         <h3>CRUD USERS</h3>
       </div>
       <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
-        <button mat-icon-button color="primary" class="small"><mat-icon>person_add</mat-icon></button>
+        <button mat-icon-button color="primary" class="small" (click)="addUser()"><mat-icon>person_add</mat-icon></button>
       </div>
   </div>
 
-  <div class="filter-crud">
+  <div class="filter-crud" *ngIf="dataUser.length !== 0;">
     <div fxLayout="row" fxLayoutGap="20px">
       <mat-form-field fxFlex="100">
         <input matInput  placeholder="Filter">
       </mat-form-field>
     </div>
   </div>
-  <div>
 
+  <div  *ngIf="dataUser.length === 0; then thenNotTableUser else elseTableUser"> </div>
+
+  <ng-template #thenNotTableUser>
+    <div class="not-data">
+      <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+        Not data available
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template  #elseTableUser>
     <mat-table [dataSource]="dataSource" >
       <ng-container matColumnDef="first_name">
         <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
-        <mat-cell *matCellDef="let users"> 
-          <span> {{users.first_name}} </span>
+        <mat-cell *matCellDef="let users">
+          <span *ngIf="users.id !== 0;" > {{users.first_name}} </span>
+          <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+            <input matInput  placeholder="First Name" [(ngModel)]="users.first_name">
+          </mat-form-field>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="last_name">
         <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-        <mat-cell *matCellDef="let users"> 
-          <span> {{users.last_name}} </span>
+        <mat-cell *matCellDef="let users">
+          <span  *ngIf="users.id !== 0;"> {{users.last_name}} </span>
+          <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+            <input matInput  placeholder="Last Name" [(ngModel)]="users.last_name">
+          </mat-form-field>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="email">
         <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-        <mat-cell *matCellDef="let users"> 
-          <span> {{users.email}} </span>
+        <mat-cell *matCellDef="let users">
+          <span *ngIf="users.id !== 0;"> {{users.email}} </span>
+          <mat-form-field fxFlex="100" >
+            <input *ngIf="users.id === 0;" matInput  placeholder="Last Name" [(ngModel)]="users.email">
+          </mat-form-field>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="gender">
         <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
-        <mat-cell *matCellDef="let users"> 
-          <span> {{users.gender}} </span>
+        <mat-cell *matCellDef="let users">
+          <span *ngIf="users.id !== 0;"> {{users.gender}} </span>
+          <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+            <input  matInput  placeholder="gender" [(ngModel)]="users.gender">
+          </mat-form-field>
         </mat-cell>
       </ng-container>
+      <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+          <mat-cell *matCellDef="let users">
+            <span *ngIf="users.id !== 0;"> {{users.address}} </span>
+            <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+              <input  matInput  placeholder="address" [(ngModel)]="users.address">
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
       <ng-container matColumnDef="enabled">
         <mat-header-cell *matHeaderCellDef>Enabled</mat-header-cell>
-        <mat-cell *matCellDef="let users"> 
-          <button mat-icon-button color="primary" class="small"><mat-icon>toggle_off</mat-icon></button>
-          <button mat-icon-button color="primary" class="small"><mat-icon>toggle_on</mat-icon></button>
+        <mat-cell *matCellDef="let users">
+          <button *ngIf="!isEnabledUser(users);" (click)="changeEnabledUser(users, true)" mat-icon-button color="primary" class="small">off <mat-icon>toggle_off</mat-icon></button>
+          <button *ngIf="isEnabledUser(users);"  (click)="changeEnabledUser(users, false)" mat-icon-button color="primary" class="small"> on <mat-icon>toggle_on</mat-icon></button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-        <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'"> 
-          <button mat-icon-button color="primary" class="small"><mat-icon>delete_forever</mat-icon></button>
-          <button mat-icon-button color="primary" class="small"><mat-icon>visibility</mat-icon></button>
+        <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'">
+          <button *ngIf="users.id !== 0;" mat-icon-button color="primary" class="small"><mat-icon>delete_forever</mat-icon></button>
+          <button *ngIf="users.id !== 0;" mat-icon-button color="primary" class="small"><mat-icon>visibility</mat-icon></button>
+          <button *ngIf="users.id === 0;" mat-icon-button color="primary" (click)="saveUser(users)" class="small"><mat-icon>save</mat-icon></button>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  </div>
+  </ng-template>
 </div>

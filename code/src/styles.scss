@@ -44,3 +44,11 @@ $icon-small-size: 20px;
     font-size: $icon-small-size;
   }
 }
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-top: 10px;
+  padding-right: 2px;
+}
+mat-cell {
+  padding-right: 15px;
+}

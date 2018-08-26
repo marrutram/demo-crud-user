@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ReactiveFormsModule }    from '@angular/forms';
+import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { MatTableModule, MatIconModule, MatButtonModule, MatInputModule } from '@angular/material';
 import { CrudUsersComponent } from './crudUsers/crudUsers.component';
@@ -23,6 +23,7 @@ import { AppComponent }  from './app.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,

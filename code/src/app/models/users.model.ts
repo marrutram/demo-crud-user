@@ -1,7 +1,8 @@
-export interface Users {
-	first_name: 'string',
-    last_name: 'string',
-    email: 'string',
-    gender: 'string',
-    enabled: 'boolean'
+export interface User {
+  first_name: 'string',
+  last_name: 'string',
+  email: 'string',
+  gender: 'string',
+  address: 'string',
+  enabled: 'boolean'
 }
