@@ -75,11 +75,11 @@ export class CrudUsersComponent implements OnInit  {
     this.dataSource.data = this.dataUser;
   }
 
-  saveUser(users) {
+  saveUser(user) {
     if (!this.isErrorUser) {
-      users = _.omit(users, ['id']);
-      this.apiUsersService.createrUser(users).pipe(first()).subscribe(usersResp => {
-        const id =_.get(usersResp, 'id');
+      user = _.omit(user, ['id']);
+      this.apiUsersService.createrUser(user).pipe(first()).subscribe(userResp => {
+        const id =_.get(userResp, 'id');
         if(!_.isUndefined(id)) {
           _.set(this.dataUser[0], 'id', id);
           this.refreshData();
@@ -131,6 +131,13 @@ export class CrudUsersComponent implements OnInit  {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  deleteUser(user) {
+    this.apiUsersService.deleteUser(user.id).pipe(first()).subscribe(userResp => {
+      this.dataUser = _.remove(this.dataUser, users => users.id !== user.id);
+      this.refreshData();
+    });
   }
 }
 

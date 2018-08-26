@@ -16,4 +16,7 @@ export class ApiUsersService {
     activeUser(id, isActive) {
       return this.http.post(`${serverURL}/persons/${id}/${isActive}`, {id: id});
     }
+    deleteUser(id) {
+      return this.http.delete(`${serverURL}/persons/${id}`);
+    }
 }
