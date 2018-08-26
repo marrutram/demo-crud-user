@@ -19,4 +19,7 @@ export class ApiUsersService {
     deleteUser(id) {
       return this.http.delete(`${serverURL}/persons/${id}`);
     }
+    updateUser(id, user) {
+      return this.http.put(`${serverURL}/persons/${id}`, user);
+    }
 }

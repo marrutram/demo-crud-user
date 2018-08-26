@@ -49,6 +49,7 @@ export class CrudUsersComponent implements OnInit  {
         gender: '',
         address: '',
         enabled: false,
+        action: 'add',
         id: 0
       };
       this.dataUser.splice(0, 0, ELEMENT_DATA);
@@ -76,12 +77,35 @@ export class CrudUsersComponent implements OnInit  {
   }
 
   saveUser(user) {
+    if(_.get(user, 'action') === 'add') {
+      this.CreateUser(user);
+    }
+    if(_.get(user, 'action') === 'edit') {
+      this.updateUser(user);
+    }
+  }
+
+  CreateUser(user) {
     if (!this.isErrorUser) {
-      user = _.omit(user, ['id']);
-      this.apiUsersService.createrUser(user).pipe(first()).subscribe(userResp => {
+      const userParameter = _.pick(user, ['last_name', 'first_name', 'enabled', 'email', 'gender', 'address']);
+      this.apiUsersService.createrUser(userParameter).pipe(first()).subscribe(userResp => {
         const id =_.get(userResp, 'id');
         if(!_.isUndefined(id)) {
           _.set(this.dataUser[0], 'id', id);
+          this.refreshData();
+        }
+      });
+    }
+  }
+
+  updateUser(user) {
+    if (!this.isErrorUser) {
+      const userParameter = _.pick(user, ['last_name', 'first_name', 'enabled', 'email', 'gender', 'address']);
+      this.apiUsersService.updateUser(user.id, userParameter).pipe(first()).subscribe(userResp => {
+        const id =_.get(userResp, 'id');
+        if(!_.isUndefined(id)) {
+          _.set(this.dataUser[0], 'id', id);
+          _.set(user, 'action' , 'none');
           this.refreshData();
         }
       });
@@ -138,6 +162,37 @@ export class CrudUsersComponent implements OnInit  {
       this.dataUser = _.remove(this.dataUser, users => users.id !== user.id);
       this.refreshData();
     });
+  }
+
+  isShowInput(user) {
+    return _.get(user, 'action') === 'add' ||  _.get(user, 'action') === 'edit';
+  }
+
+  editUser(user) {
+    const userClone = _.cloneDeep(user);
+    _.set(user, 'copy' , userClone);
+    _.set(user, 'action' , 'edit');
+  }
+
+  clearUser(user) {
+    switch (_.get(user, 'action')) {
+      case 'edit':
+        let userCopy = _.get(user, 'copy');
+        user.last_name = _.get(userCopy, 'last_name');
+        user.first_name = _.get(userCopy, 'first_name');
+        user.enabled = _.get(userCopy, 'enabled');
+        user.email = _.get(userCopy, 'email');
+        user.gender = _.get(userCopy, 'gender');
+        user.address = _.get(userCopy, 'address');
+        user.action = _.get(userCopy, 'address');
+        _.set(user, 'action' , 'none');
+        break;
+      case 'add':
+        _.remove(this.dataUser, users => users.id === user.id);
+        this.refreshData();
+        break;
+      default:
+    }
   }
 }
 

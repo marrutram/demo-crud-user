@@ -17,12 +17,15 @@
   </div>
 
   <div  *ngIf="dataUser.length === 0; then thenNotTableUser else elseTableUser"> </div>
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-      <mat-spinner></mat-spinner>
-  </div>
+
 
   <ng-template #thenNotTableUser>
-    <div class="not-data">
+    <div class="spinner-data" *ngIf="dataSource">
+      <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100" class="spinner-container" >
+          <mat-spinner></mat-spinner>
+      </div>
+    </div>
+    <div class="not-data" *ngIf="!dataSource">
       <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
         Not data available
       </div>
@@ -38,8 +41,8 @@
           <ng-container matColumnDef="first_name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
             <mat-cell *matCellDef="let users">
-              <span *ngIf="users.id !== 0;" > {{users.first_name}} </span>
-              <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+              <span *ngIf="!isShowInput(users);" > {{users.first_name}} </span>
+              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
                 <input matInput  placeholder="First Name" [(ngModel)]="users.first_name" required>
               </mat-form-field>
             </mat-cell>
@@ -47,8 +50,8 @@
           <ng-container matColumnDef="last_name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
             <mat-cell *matCellDef="let users">
-              <span  *ngIf="users.id !== 0;"> {{users.last_name}} </span>
-              <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+              <span  *ngIf="!isShowInput(users);"> {{users.last_name}} </span>
+              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
                 <input matInput  placeholder="Last Name" [(ngModel)]="users.last_name" required>
               </mat-form-field>
             </mat-cell>
@@ -56,8 +59,8 @@
           <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
             <mat-cell *matCellDef="let users">
-              <span *ngIf="users.id !== 0;"> {{users.email}} </span>
-              <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+              <span *ngIf="!isShowInput(users);"> {{users.email}} </span>
+              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
                 <input  type="email"  matInput  placeholder="Email"  [(ngModel)]="users.email" required>
                 <mat-error *ngIf="users.emai">sss</mat-error>
               </mat-form-field>
@@ -66,8 +69,8 @@
           <ng-container matColumnDef="gender">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
             <mat-cell *matCellDef="let users">
-              <span *ngIf="users.id !== 0;"> {{users.gender}} </span>
-              <mat-form-field fxFlex="100" *ngIf="users.id === 0;">
+              <span *ngIf="!isShowInput(users);"> {{users.gender}} </span>
+              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
                 <mat-select placeholder="Gender"  [(ngModel)]="users.gender" required>
                   <mat-option value="male">Male</mat-option>
                   <mat-option value="female">Female</mat-option>
@@ -78,8 +81,8 @@
           <ng-container matColumnDef="address">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
               <mat-cell *matCellDef="let users">
-                <span *ngIf="users.id !== 0;"> {{users.address}} </span>
-                <mat-form-field fxFlex="100" *ngIf="users.id === 0;"  >
+                <span *ngIf="!isShowInput(users);"> {{users.address}} </span>
+                <mat-form-field fxFlex="100" *ngIf="isShowInput(users);"  >
                   <input  matInput  placeholder="address" [(ngModel)]="users.address" required>
                 </mat-form-field>
               </mat-cell>
@@ -96,10 +99,11 @@
               <button mat-icon-button matTooltip="Add User" matTooltipPosition='above' color="primary" class="small" (click)="addUser()"><mat-icon>person_add</mat-icon></button>
             </mat-header-cell>
             <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'">
-              <button *ngIf="users.id !== 0;" mat-icon-button  matTooltip="Delete User" matTooltipPosition='above' color="primary" class="small" (click)="deleteUser(users)" ><mat-icon>delete_forever</mat-icon></button>
-              <button *ngIf="users.id !== 0;" mat-icon-button  matTooltip="View User" matTooltipPosition='above' color="primary" class="small"><mat-icon>visibility</mat-icon></button>
-              <button *ngIf="users.id !== 0;" mat-icon-button  matTooltip="Edit User" matTooltipPosition='above' color="primary" class="small"><mat-icon>edit</mat-icon></button>
-              <button *ngIf="users.id === 0;" mat-icon-button  matTooltip="Save User" matTooltipPosition='above' color="primary" (click)="saveUser(users)" [ngClass]="checkVerification(users)" class="small"><mat-icon>save</mat-icon></button>
+              <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="Delete User" matTooltipPosition='above' color="primary" class="small" (click)="deleteUser(users)" ><mat-icon>delete_forever</mat-icon></button>
+              <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="View User" matTooltipPosition='above' color="primary" class="small"><mat-icon>visibility</mat-icon></button>
+              <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="Edit User" matTooltipPosition='above' color="primary" class="small" (click)="editUser(users)" ><mat-icon>edit</mat-icon></button>
+              <button *ngIf="isShowInput(users);" mat-icon-button  matTooltip="Save User" matTooltipPosition='above' color="primary" (click)="saveUser(users)" [ngClass]="checkVerification(users)" class="small"><mat-icon>save</mat-icon></button>
+              <button *ngIf="isShowInput(users);" mat-icon-button  matTooltip="Clear User" matTooltipPosition='above' color="primary" (click)="clearUser(users)"  class="small"><mat-icon>clear</mat-icon></button>
             </mat-cell>
           </ng-container>
 
