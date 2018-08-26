@@ -1,1 +1,1 @@
-export const serverURL = 'https://person-api-demo.herokuapp.com';
+export const serverURL = '/api';

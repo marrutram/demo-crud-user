@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://person-api-demo.herokuapp.com",
+    "secure": true,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true
+  }
+}

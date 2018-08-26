@@ -8,18 +8,13 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    let options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }),
-      body: { username: username, password: password },
-    };
-    return this.http.post<any>(`${serverURL}/auth/login`, options)
+    let body = { username: username, password: password };
+    return this.http.post<any>(`${serverURL}/auth/login`, body)
       .pipe(map(user => {
-          if (user && user.token) {
-              localStorage.setItem('currentUser', JSON.stringify(user));
-          }
-          return user;
+        if (user && user.access_token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
       }));
   }
 
