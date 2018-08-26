@@ -57,7 +57,14 @@ export class CrudUsersComponent implements OnInit  {
   }
 
   changeEnabledUser(item, value) {
-    item.enabled = value;
+    if (item.id != 0) {
+      const isActive = value ? 'activate' : 'deactivate';
+      this.apiUsersService.activeUser(item.id, isActive).pipe(first()).subscribe(usersResp => {
+        item.enabled = value;
+      });
+    } else {
+      item.enabled = value;
+    }
   }
 
   isEnabledUser(item) {

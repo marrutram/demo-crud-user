@@ -13,4 +13,7 @@ export class ApiUsersService {
     createrUser(user: User) {
       return this.http.post(`${serverURL}/persons`, user);
     }
+    activeUser(id, isActive) {
+      return this.http.post(`${serverURL}/persons/${id}/${isActive}`, {id: id});
+    }
 }
