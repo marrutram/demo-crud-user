@@ -49,6 +49,12 @@ $icon-small-size: 20px;
   padding-top: 10px;
   padding-right: 2px;
 }
+
 mat-cell {
+  padding-right: 15px;
+}
+
+mat-header-cell {
+  max-width: -webkit-fill-available;
   padding-right: 15px;
 }

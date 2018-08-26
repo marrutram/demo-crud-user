@@ -23,6 +23,23 @@
   .not-data{
     margin: 15px;
   }
-
+  .button-on {
+    color: red;
+  }
+  .button-on svg {
+    fill: red;
+  }
+  .button-off {
+    color: green;
+  }
+  .button-off svg {
+    fill: green;
+  }
+  .disabled-save {
+    color: gray;
+  }
+  .disabled-save svg {
+    color: gray;
+  }
 }
 

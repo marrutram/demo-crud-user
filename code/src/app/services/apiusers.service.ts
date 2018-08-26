@@ -8,9 +8,7 @@ import {User} from '../models/users.model';
 export class ApiUsersService {
     constructor(private http: HttpClient) {}
     getUsers() {
-        return forkJoin(
-          this.http.get((`${serverURL}/persons`))
-        );
+        return this.http.get<User[]>(`${serverURL}/persons`);
     }
     createrUser(user: User) {
       return this.http.post(`${serverURL}/persons`, user);
