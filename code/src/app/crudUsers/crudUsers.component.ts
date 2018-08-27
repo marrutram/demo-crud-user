@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import { first } from 'rxjs/operators';
 import { User} from '../models/users.model';
-import { AuthenticationService} from '../services';
+import { AuthenticationService, AlertService} from '../services';
 import { Router } from '@angular/router';
 import { ViewUserComponent }  from '../viewUser';
 
@@ -23,6 +23,7 @@ export class CrudUsersComponent implements OnInit  {
 
   constructor(private apiUsersService:  ApiUsersService,
     private authenticationService: AuthenticationService,
+    private alertService: AlertService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -100,6 +101,7 @@ export class CrudUsersComponent implements OnInit  {
           _.set(user, 'action' , 'none');
           this.refreshData();
         }
+        this.alertService.clear();
       });
     }
   }
@@ -113,6 +115,7 @@ export class CrudUsersComponent implements OnInit  {
           _.set(user, 'action' , 'none');
           this.refreshData();
         }
+        this.alertService.clear();
       });
     }
   }
@@ -166,6 +169,7 @@ export class CrudUsersComponent implements OnInit  {
     this.apiUsersService.deleteUser(user.id).pipe(first()).subscribe(userResp => {
       this.dataUser = _.remove(this.dataUser, users => users.id !== user.id);
       this.refreshData();
+      this.alertService.clear();
     });
   }
 
