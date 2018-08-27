@@ -15,6 +15,7 @@ import { ViewUserComponent }  from '../viewUser';
 
 export class CrudUsersComponent implements OnInit  {
   dataUser = [];
+  pattern = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$';
   isErrorUser = false;
   dataSource = new MatTableDataSource();
   displayedColumns = ['first_name', 'last_name', 'email', 'gender', 'address', 'enabled', 'action'];
@@ -95,7 +96,8 @@ export class CrudUsersComponent implements OnInit  {
       this.apiUsersService.createrUser(userParameter).pipe(first()).subscribe(userResp => {
         const id =_.get(userResp, 'id');
         if(!_.isUndefined(id)) {
-          _.set(this.dataUser[0], 'id', id);
+          _.set(user, 'id', id);
+          _.set(user, 'action' , 'none');
           this.refreshData();
         }
       });
@@ -108,7 +110,6 @@ export class CrudUsersComponent implements OnInit  {
       this.apiUsersService.updateUser(user.id, userParameter).pipe(first()).subscribe(userResp => {
         const id =_.get(userResp, 'id');
         if(!_.isUndefined(id)) {
-          _.set(this.dataUser[0], 'id', id);
           _.set(user, 'action' , 'none');
           this.refreshData();
         }

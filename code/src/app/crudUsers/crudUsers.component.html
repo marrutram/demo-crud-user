@@ -42,8 +42,10 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
             <mat-cell *matCellDef="let users">
               <span *ngIf="!isShowInput(users);" > {{users.first_name}} </span>
-              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
-                <input matInput  placeholder="First Name" [(ngModel)]="users.first_name" required>
+              <mat-form-field fxFlex="100" *ngIf="isShowInput(users);" >
+                <input matInput  placeholder="First Name" [(ngModel)]="users.first_name" minlength="3" required #firstnameField="ngModel">
+                <mat-error *ngIf="firstnameField.errors && users.first_name">First Name must be at least 3 characters long.</mat-error>
+                <mat-error *ngIf="firstnameField.errors && !users.first_name"> First Name required </mat-error>
               </mat-form-field>
             </mat-cell>
           </ng-container>
@@ -52,7 +54,9 @@
             <mat-cell *matCellDef="let users">
               <span  *ngIf="!isShowInput(users);"> {{users.last_name}} </span>
               <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
-                <input matInput  placeholder="Last Name" [(ngModel)]="users.last_name" required>
+                <input matInput  placeholder="Last Name" [(ngModel)]="users.last_name" minlength="3" required #lastnameField="ngModel" >
+                <mat-error *ngIf="lastnameField.errors && users.last_name">Last Name must be at least 3 characters long.</mat-error>
+                <mat-error *ngIf="lastnameField.errors && !users.last_name"> Last Name required </mat-error>
               </mat-form-field>
             </mat-cell>
           </ng-container>
@@ -61,8 +65,9 @@
             <mat-cell *matCellDef="let users">
               <span *ngIf="!isShowInput(users);"> {{users.email}} </span>
               <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
-                <input  type="email"  matInput  placeholder="Email"  [(ngModel)]="users.email" required>
-                <mat-error *ngIf="users.emai">sss</mat-error>
+                <input  type="email"  matInput  placeholder="Email"   [pattern]="pattern" [(ngModel)]="users.email" required #emailField="ngModel">
+                <mat-error *ngIf="emailField.errors && users.email">Email is invalid .</mat-error>
+                <mat-error *ngIf="emailField.errors && !users.email">Email Name required </mat-error>
               </mat-form-field>
             </mat-cell>
           </ng-container>
@@ -71,10 +76,11 @@
             <mat-cell *matCellDef="let users">
               <span *ngIf="!isShowInput(users);"> {{users.gender}} </span>
               <mat-form-field fxFlex="100" *ngIf="isShowInput(users);">
-                <mat-select placeholder="Gender"  [(ngModel)]="users.gender" required>
+                <mat-select placeholder="Gender"  [(ngModel)]="users.gender" required #genderField="ngModel">
                   <mat-option value="male">Male</mat-option>
                   <mat-option value="female">Female</mat-option>
                 </mat-select>
+                <mat-error *ngIf="genderField.errors">Gender is required.</mat-error>
               </mat-form-field>
             </mat-cell>
           </ng-container>
@@ -83,7 +89,9 @@
               <mat-cell *matCellDef="let users">
                 <span *ngIf="!isShowInput(users);"> {{users.address}} </span>
                 <mat-form-field fxFlex="100" *ngIf="isShowInput(users);"  >
-                  <input  matInput  placeholder="address" [(ngModel)]="users.address" required>
+                  <input  matInput  placeholder="address" [(ngModel)]="users.address" minlength="8" required #lastnameField="ngModel">
+                  <mat-error *ngIf="lastnameField.errors && users.address">Address must be at least 3 characters long.</mat-error>
+                  <mat-error *ngIf="lastnameField.errors && !users.address">Address Name required </mat-error>
                 </mat-form-field>
               </mat-cell>
             </ng-container>
