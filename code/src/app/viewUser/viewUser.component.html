@@ -1,0 +1,63 @@
+<div mat-dialog-title>
+    <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50" >
+      <h2>User</h2>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
+      <button mat-icon-button  matTooltip="Close" matTooltipPosition='above' color="primary" (click)="close()"  class="small"><mat-icon>clear</mat-icon></button>
+    </div>
+  </div>
+<mat-dialog-content class="viewUser">
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50" >
+        <label>First Name:</label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span>{{dataUser.first_name}}</span>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <label>Last Name:</label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span>{{dataUser.last_name}}</span>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <label>Enabled:</label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span>{{dataUser.enabled}}</span>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <label>Email: </label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span>{{dataUser.email}}</span>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <label>Gender: </label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span>{{dataUser.gender}} </span>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <label>Address: </label>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+        <span> {{dataUser.address}} </span>
+      </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>

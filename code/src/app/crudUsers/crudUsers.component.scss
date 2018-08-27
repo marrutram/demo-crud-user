@@ -44,5 +44,10 @@
   .spinner-data {
     margin: 10%;
   }
+  span {
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+  }
 }
 

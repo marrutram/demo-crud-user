@@ -22,4 +22,7 @@ export class ApiUsersService {
     updateUser(id, user) {
       return this.http.put(`${serverURL}/persons/${id}`, user);
     }
+    viewUser(id) {
+      return this.http.get(`${serverURL}/persons/${id}`);
+    }
 }

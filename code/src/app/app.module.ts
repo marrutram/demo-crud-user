@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { MatTableModule, MatIconModule, MatButtonModule, MatInputModule, MatSelectModule, MatProgressSpinnerModule, MatTooltipModule, MatFormFieldModule} from '@angular/material';
+import { MatTableModule, MatIconModule, MatButtonModule, MatInputModule, MatSelectModule, MatProgressSpinnerModule, MatTooltipModule, MatFormFieldModule, MatDialogModule} from '@angular/material';
 import { CrudUsersComponent } from './crudUsers/crudUsers.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { routing } from './app.routing';
 import { LoginComponent } from './login';
 import { AlertComponent } from './directives';
 import { AppComponent }  from './app.component';
+import { ViewUserComponent }  from './viewUser';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { AppComponent }  from './app.component';
     AlertComponent,
     CrudUsersComponent,
     LoginComponent,
+    ViewUserComponent
   ],
+  entryComponents: [ViewUserComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -35,7 +38,8 @@ import { AppComponent }  from './app.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
   ],
   providers: [
     ApiUsersService,

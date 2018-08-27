@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ApiUsersService } from '../services/apiusers.service';
 import * as _ from 'lodash';
-import {MatTableDataSource, MatSort} from '@angular/material';
+import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import { first } from 'rxjs/operators';
 import { User} from '../models/users.model';
 import { AuthenticationService} from '../services';
 import { Router } from '@angular/router';
+import { ViewUserComponent }  from '../viewUser';
 
 @Component({
   templateUrl: './crudUsers.component.html',
@@ -19,7 +20,10 @@ export class CrudUsersComponent implements OnInit  {
   displayedColumns = ['first_name', 'last_name', 'email', 'gender', 'address', 'enabled', 'action'];
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private apiUsersService:  ApiUsersService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private apiUsersService:  ApiUsersService,
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getUsers();
@@ -143,7 +147,7 @@ export class CrudUsersComponent implements OnInit  {
           this.isErrorUser = _.isEmpty(value) || value.length < 3;
           break;
         case 'address':
-          this.isErrorUser = _.isEmpty(value) || value.length < 3;
+          this.isErrorUser = _.isEmpty(value) || value.length < 8;
           break;
         default:
       }
@@ -193,6 +197,23 @@ export class CrudUsersComponent implements OnInit  {
         break;
       default:
     }
+  }
+
+  openViewUser(user) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '400px';
+    dialogConfig.data = {
+      id: 1,
+      title: 'Angular For Beginners'
+    };
+    this.apiUsersService.viewUser(user.id).subscribe(users => {
+      dialogConfig.data = users;
+      this.dialog.open(ViewUserComponent, dialogConfig);
+    });
+
   }
 }
 

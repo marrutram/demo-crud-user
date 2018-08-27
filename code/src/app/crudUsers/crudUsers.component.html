@@ -100,7 +100,7 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let users"  [ngClass]="'rowTrash'">
               <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="Delete User" matTooltipPosition='above' color="primary" class="small" (click)="deleteUser(users)" ><mat-icon>delete_forever</mat-icon></button>
-              <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="View User" matTooltipPosition='above' color="primary" class="small"><mat-icon>visibility</mat-icon></button>
+              <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="View User" matTooltipPosition='above' color="primary" class="small" (click)="openViewUser(users)" ><mat-icon>visibility</mat-icon></button>
               <button *ngIf="!isShowInput(users);" mat-icon-button  matTooltip="Edit User" matTooltipPosition='above' color="primary" class="small" (click)="editUser(users)" ><mat-icon>edit</mat-icon></button>
               <button *ngIf="isShowInput(users);" mat-icon-button  matTooltip="Save User" matTooltipPosition='above' color="primary" (click)="saveUser(users)" [ngClass]="checkVerification(users)" class="small"><mat-icon>save</mat-icon></button>
               <button *ngIf="isShowInput(users);" mat-icon-button  matTooltip="Clear User" matTooltipPosition='above' color="primary" (click)="clearUser(users)"  class="small"><mat-icon>clear</mat-icon></button>
