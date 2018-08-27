@@ -12,6 +12,7 @@
     <div fxLayout="row" fxLayoutGap="20px">
       <mat-form-field fxFlex="100" matTooltip="Eg: First Name + Last Name" matTooltipPosition='above'>
         <input matInput (keyup)="applyFilterUser($event.target.value)"  placeholder="Filter">
+        <mat-hint>Eg: First Name + Last Name</mat-hint>
       </mat-form-field>
     </div>
   </div>
@@ -98,8 +99,8 @@
           <ng-container matColumnDef="enabled">
             <mat-header-cell *matHeaderCellDef>Enabled</mat-header-cell>
             <mat-cell *matCellDef="let users">
-              <button *ngIf="!isEnabledUser(users);" (click)="changeEnabledUser(users, true)" mat-icon-button class="small button-off">off <mat-icon>toggle_off</mat-icon></button>
-              <button *ngIf="isEnabledUser(users);"  (click)="changeEnabledUser(users, false)" mat-icon-button  class="small button-on"> on <mat-icon>toggle_on</mat-icon></button>
+              <button *ngIf="!isEnabledUser(users);" matTooltip="Change Enabled" matTooltipPosition='above' (click)="changeEnabledUser(users, true)" mat-icon-button class="small button-off">off <mat-icon>toggle_off</mat-icon></button>
+              <button *ngIf="isEnabledUser(users);"  matTooltip="Change Enabled" matTooltipPosition='above' (click)="changeEnabledUser(users, false)" mat-icon-button  class="small button-on"> on <mat-icon>toggle_on</mat-icon></button>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="action" >
